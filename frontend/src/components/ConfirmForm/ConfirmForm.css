@@ -33,6 +33,11 @@ body {
     flex-direction: column;
 }
 
+.info p {
+    margin-top: 8px;
+    font-size: 0.8em;
+}
+
 @media (max-width: 610px) {
     .num-item {
         width: 40px;
@@ -42,7 +47,7 @@ body {
     }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 470px) {
     .num-item {
         width: 30px;
         height: 30px;
@@ -55,6 +60,15 @@ body {
     }
 
     .info p {
-        font-size: 0.8em;
+        font-size: 0.5em;
+        margin-top: 10px;
+    }
+}
+
+@media (min-width: 1000px) {
+    .info p {
+        margin-top: 10px;
+        margin-bottom: 20px;
+        font-size: 1.2em;
     }
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {Carousel} from 'react-bootstrap';
 //import ExampleCarouselImage from 'components/ExampleCarouselImage';
 import './LoginForm.css';
-import { redirect } from 'react-router-dom';
+import { json, redirect } from 'react-router-dom';
 
 
 function LoginForm(props) {
@@ -39,7 +39,7 @@ function LoginForm(props) {
 
     function handleSubmit(event) {
         if (formValid) {
-            //alert(email);
+            localStorage.setItem("userEmail", JSON.stringify(email))
             event.preventDefault()
             window.location.href = "http://localhost:3000/login/check/";
             

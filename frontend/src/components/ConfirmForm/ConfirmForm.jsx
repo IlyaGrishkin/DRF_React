@@ -27,10 +27,12 @@ function ConfirmForm() {
 
     const digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
+    const userEmail = JSON.parse(localStorage.getItem("userEmail"))
+    
+
     useEffect(() => {
         if (code.indexOf(-1) == -1) {
             let s = code.join("");
-            console.log(s);
             window.location.href = "http://localhost:3000/login/check/results/"
 
         }
@@ -38,76 +40,139 @@ function ConfirmForm() {
 
     function handleChange(e, index) {
         if (index == '1') {
+            let flag = false;
             if (e.target.value.length <= 1) {
-                setNum1(e.target.value) 
+                if (digits.indexOf(e.target.value) != -1) {
+                    setNum1(e.target.value) 
+                    flag = true
+                } 
+                
             }
-            if (e.target.value.length == 1){
+            if (flag){
                 setInputFocus2()
             }
-            let newCode = code.slice()
-            newCode[parseInt(index) - 1] = e.target.value;
-            setCode(newCode)
+            if (flag) {
+                let newCode = code.slice()
+                newCode[parseInt(index) - 1] = e.target.value;
+                setCode(newCode)
+            }
             
         }
         else if (index == '2') {
+            let flag = false;
             if (e.target.value.length <= 1) {
-                setNum2(e.target.value)
+                if (digits.indexOf(e.target.value) != -1) {
+                    setNum2(e.target.value)
+                    flag = true;
+                }
+                
             }
-            if (e.target.value.length == 1){
+            if (flag){
                 setInputFocus3()
             }
-            let newCode = code.slice()
-            newCode[parseInt(index) - 1] = e.target.value;
-            setCode(newCode)
+            if (flag) {
+                let newCode = code.slice()
+                newCode[parseInt(index) - 1] = e.target.value;
+                setCode(newCode)
+            }
 
         }
         else if (index == '3') {
+            let flag = false;
             if (e.target.value.length <= 1) {
-                setNum3(e.target.value)
+                if (digits.indexOf(e.target.value) != -1) {
+                    setNum3(e.target.value)
+                    flag = true;
+                }
             }
-            if (e.target.value.length == 1){
+            if (flag){
                 setInputFocus4()
             }
-            let newCode = code.slice()
-            newCode[parseInt(index) - 1] = e.target.value;
-            setCode(newCode)
+            if (flag) {
+                let newCode = code.slice()
+                newCode[parseInt(index) - 1] = e.target.value;
+                setCode(newCode)
+            }
              
         }
         else if (index == '4') {
+            let flag = false;
             if (e.target.value.length <= 1) {
-                setNum4(e.target.value)
+                if (digits.indexOf(e.target.value) != -1) {
+                    setNum4(e.target.value)
+                    flag = true;
+                }
             }
-            if (e.target.value.length == 1){
+            if (flag){
                 setInputFocus5()
             }
-            let newCode = code.slice()
-            newCode[parseInt(index) - 1] = e.target.value;
-            setCode(newCode)
+            if (flag) {
+                let newCode = code.slice()
+                newCode[parseInt(index) - 1] = e.target.value;
+                setCode(newCode)
+            }
              
         }
         else if (index == '5') {
+            let flag = false;
             if (e.target.value.length <= 1) {
-                setNum5(e.target.value)
+                if (digits.indexOf(e.target.value) != -1) {
+                    setNum5(e.target.value)
+                    flag = true;
+                }
             }
-            if (e.target.value.length == 1){
+            if (flag){
                 setInputFocus6()
             }
-            let newCode = code.slice()
-            newCode[parseInt(index) - 1] = e.target.value;
-            setCode(newCode)
+            if (flag) {
+                let newCode = code.slice()
+                newCode[parseInt(index) - 1] = e.target.value;
+                setCode(newCode)
+            }
              
         }
         else if (index == '6') {
+            let flag = false;
             if (e.target.value.length <= 1) {
-                setNum6(e.target.value)
+                if (digits.indexOf(e.target.value) != -1) {
+                    setNum6(e.target.value)
+                    flag = true
+
+                }
             }
-            let newCode = code.slice()
-            newCode[parseInt(index) - 1] = e.target.value;
-            setCode(newCode)
+            if (flag) {
+                let newCode = code.slice()
+                newCode[parseInt(index) - 1] = e.target.value;
+                setCode(newCode)
+            }
+            
 
         }
 
          
+    }
+
+    function handleKey(e, index) {
+        if (e.code == "Backspace") {
+            if (index == "1") {
+                setNum1("")
+            }
+            else if (index == "2") {
+                setNum2("")
+            }
+            else if (index == "3") {
+                setNum3("")
+            }
+            else if (index == "4") {
+                setNum4("")
+            }
+            else if (index == "5") {
+                setNum5("")
+            }
+            else if (index == "6") {
+                setNum6("")
+            }
+        }
     }
 
 
@@ -115,15 +180,15 @@ function ConfirmForm() {
         <div className='screen-wrapper'>
             <div className='info'>
                 <h2>Проверьте свой почтовый ящик</h2>
-                <p>Мы отправили письмо c кодом подтверждения</p>
+                <p>Мы отправили письмо c кодом подтверждения на адрес {userEmail}</p>
             </div>
             <div className='code-wrapper'>
-                <input type="text" class="form-control num-item" value={num1} onChange={e => handleChange(e, '1')}/>
-                <input ref={inputRef2} type="text" class="form-control num-item" value={num2} onChange={e => handleChange(e, '2')}/>
-                <input ref={inputRef3} type="text" class="form-control num-item" value={num3} onChange={e => handleChange(e, '3')}/>
-                <input ref={inputRef4} type="text" class="form-control num-item" value={num4} onChange={e => handleChange(e, '4')}/>
-                <input ref={inputRef5} type="text" class="form-control num-item" value={num5} onChange={e => handleChange(e, '5')}/>
-                <input ref={inputRef6} type="text" class="form-control num-item" value={num6} onChange={e => handleChange(e, '6')}/>
+                <input type="text" class="form-control num-item" value={num1} onChange={e => handleChange(e, '1')} onKeyDown={e => handleKey(e, '1')} pattern="\d+"/>
+                <input ref={inputRef2} type="text" class="form-control num-item" value={num2} onChange={e => handleChange(e, '2')} onKeyDown={e => handleKey(e, '2')} pattern="\d+"/>
+                <input ref={inputRef3} type="text" class="form-control num-item" value={num3} onChange={e => handleChange(e, '3')} onKeyDown={e => handleKey(e, '3')} pattern="\d+"/>
+                <input ref={inputRef4} type="text" class="form-control num-item" value={num4} onChange={e => handleChange(e, '4')} onKeyDown={e => handleKey(e, '4')} pattern="\d+"/>
+                <input ref={inputRef5} type="text" class="form-control num-item" value={num5} onChange={e => handleChange(e, '5')} onKeyDown={e => handleKey(e, '5')} pattern="\d+"/>
+                <input ref={inputRef6} type="text" class="form-control num-item" value={num6} onChange={e => handleChange(e, '6')} onKeyDown={e => handleKey(e, '6')} pattern="\d+"/>
             </div>
             
         </div>
