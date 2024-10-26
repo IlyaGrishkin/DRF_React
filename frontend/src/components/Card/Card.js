@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Card, ListGroup, Button } from 'react-bootstrap';
-import { getAPIData, addAnswer, results } from '../../redux/reduxIndex';
+import { getAPIData, addAnswer, results, setObj } from '../../redux/reduxIndex';
 import { useParams } from 'react-router-dom';
-import { useLocalStorage } from '../Utils/UseLocalStorage';
+import './Card.css';
 
 
 
-
-function AppCard() {
+function AppCard(props) {
     const test = getAPIData();
-    const [{ id }, setId] = useState(useParams());
+    const [ id , setId] = useState(props.id);
     const [question, setQuestion] = useState(test.questions[id - 1]);
     const [variants, setVariants] = useState(question.variants);
-    const [{ testID }, setTestId] = useState(useParams());
+    const [testID, setTestId] = useState(props.testID);
     const [questionsQuantity, setQuestionsQuantity] = useState(test.questions.length);
     const [answer, setAnswer] = useState({});
-
+    
 
     if (!localStorage.getItem("answers")) {
         let answersStorage = {};
@@ -73,6 +72,11 @@ function AppCard() {
             localStorage.setItem('answers', JSON.stringify(ans));
         }
 
+         
+
+
+
+
         return (
 
             <Card className='my-3' style={{ width: computeCardSize() + "%" }}>
@@ -98,7 +102,7 @@ function AppCard() {
                     </ListGroup>
 
                     <Card.Body style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <Button onClick={() => { addAnswer(question.localId, active) }} className="w-50" variant='outline-success' href={question.localId == questionsQuantity ? `/${testID}/results/` : `/card/${testID}/${question.localId ? parseInt(question.localId) + 1 : 1}/`}>Next</Button>
+                        <Button onClick={() => { addAnswer(question.localId, active); setObj(JSON.parse(localStorage.getItem("answers")))}} className="w-50" variant='outline-success' href={question.localId == questionsQuantity ? `/${testID}/results/` : `/card/${testID}/${question.localId ? parseInt(question.localId) + 1 : 1}/`}>Next</Button>
                     </Card.Body>
                 </div>
 

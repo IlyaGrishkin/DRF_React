@@ -32,6 +32,19 @@ export function getAPIData() {
     return test;
 }
 
+export function getTimeFromServer(){
+    return 20;
+}
+
+export let obj = {answers: {1: [0, 1], 2: [2, 3]}, startTime: Date.now() - 50 * 1000};
+
+export function setObj(newAns){
+    obj.answers = newAns;
+}
+
+export function getTestData(){
+    return obj;
+}
 
 
 export let results = [];
@@ -39,5 +52,4 @@ export let results = [];
 export function addAnswer(testID, questionID, answerID) {
     results.push([questionID, answerID]);
 }
-
 

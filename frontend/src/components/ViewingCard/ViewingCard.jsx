@@ -17,9 +17,6 @@ export function ViewingCard() {
     const variants = test.questions[id - 1].variants;
     
 
-    localStorage.removeItem("answers");
-
-
     function computeCardSize() {
         let width = window.screen.width;
         let computed = 27;

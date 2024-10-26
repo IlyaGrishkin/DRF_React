@@ -15,21 +15,7 @@ body {
   height: 100vh;
 }
 
-.test-screen {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-} 
 
-.my-card {
-  grid-column: 2/12;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.test-nav {
-  grid-column: 1/2;
-}
 
 .video-bg {
   height: 100%;
