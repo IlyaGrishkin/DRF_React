@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {Carousel} from 'react-bootstrap';
 //import ExampleCarouselImage from 'components/ExampleCarouselImage';
 import './LoginForm.css';
+import axios from 'axios'
 
 
 
@@ -40,6 +41,16 @@ function LoginForm(props) {
     function handleSubmit(event) {
         if (formValid) {
             localStorage.setItem("userEmail", JSON.stringify(email))
+            const apiUrl = `http://localhost:8000/api/v1/customers/get_and_auth`;
+            axios.post(apiUrl, 
+                {
+                    email: email
+                }
+            )
+            
+            .then((resp) => {
+            const serverData = resp.data;
+            });
             event.preventDefault()
             window.location.href = "http://localhost:3000/login/check/";
             

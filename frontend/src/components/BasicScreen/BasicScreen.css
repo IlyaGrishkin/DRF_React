@@ -15,6 +15,19 @@
     margin-right: 5%;
     margin-top: 5%;
 }
+
+.card p {
+    user-select: none;
+}
+
+.card-title {
+    user-select: none;
+}
+
+.card:hover{
+     box-shadow: 1px 1px 3px grey;
+}
+
 .line {
     margin-left: 5%;
     width: 90%;
@@ -29,4 +42,19 @@
 
 #dropdown-basic-button {
     margin-left: 5%;
+}
+
+.timeVideo {
+    width: 25px;
+    height: 25px;
+}
+
+.timeInfo {
+    display: flex;
+    gap: 10px;
+}
+
+.questionsInfo {
+    display: flex;
+    gap: 10px;
 }

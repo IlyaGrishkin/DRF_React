@@ -7,19 +7,18 @@ import './Card.css';
 
 
 function AppCard(props) {
-    const test = getAPIData();
-    const [ id , setId] = useState(props.id);
-    const [question, setQuestion] = useState(test.questions[id - 1]);
-    const [variants, setVariants] = useState(question.variants);
-    const [testID, setTestId] = useState(props.testID);
-    const [questionsQuantity, setQuestionsQuantity] = useState(test.questions.length);
+    const id = props.id
+    const testID = props.testID
+    const variants = props.variants;
+    const questionsQuantity = props.questionsQuantity
+    console.log(`QQ: ${questionsQuantity}`)
     const [answer, setAnswer] = useState({});
     
 
     if (!localStorage.getItem("answers")) {
         let answersStorage = {};
 
-        for (let i = 1; i <= test.questions.length; i++) {
+        for (let i = 1; i <= questionsQuantity; i++) {
             answersStorage[i] = []
         }
 
@@ -86,7 +85,7 @@ function AppCard(props) {
                     <Card.Body>
                         <Card.Title>{ }</Card.Title>
                         <Card.Text>
-                            <h5>{id}. {question.text}</h5>
+                            <h5>{id}. {props.question.title}</h5>
                         </Card.Text>
                     </Card.Body>
 
@@ -102,7 +101,7 @@ function AppCard(props) {
                     </ListGroup>
 
                     <Card.Body style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <Button onClick={() => { addAnswer(question.localId, active); setObj(JSON.parse(localStorage.getItem("answers")))}} className="w-50" variant='outline-success' href={question.localId == questionsQuantity ? `/${testID}/results/` : `/card/${testID}/${question.localId ? parseInt(question.localId) + 1 : 1}/`}>Next</Button>
+                        <Button onClick={() => { addAnswer(1, active); setObj(JSON.parse(localStorage.getItem("answers")))}} className="w-50" variant='outline-success' href={id == questionsQuantity ? `/${testID}/results/` : `/card/${testID}/${id ? parseInt(id) + 1 : 1}/`}>Next</Button>
                     </Card.Body>
                 </div>
 

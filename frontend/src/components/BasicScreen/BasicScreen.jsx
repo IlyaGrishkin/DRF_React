@@ -13,14 +13,7 @@ import './BasicScreen.css';
 function BasicScreen() {
     return (
         <div className='screen-wrapper'>
-            <div className='line'>
-            </div>
-            <div className='test-create'>
-                <div className='test-start-info'>
-                    <h3>Создать тест</h3>
-                </div>
-            </div>
-
+            
             <div className='line'>
             </div>
             <div className='test-start'>
@@ -37,13 +30,26 @@ function BasicScreen() {
                     <Card className="card" style={{ width: '18rem' }}>
                         <Card.Img variant="top" src="http://127.0.0.1:8080/1677481342_bronk-club-p-otkritki-tomas-kinkeid-instagram-25.jpg" />
                         <Card.Body>
-                            <Card.Title>Русская архитектура</Card.Title>
+                            <Card.Title className='card-title'>Русская архитектура</Card.Title>
                             <Card.Text>
                                 Базовый тест на знание русской архитектуры XV-XVIII веков
                             </Card.Text>
                             <Card.Text>
-                                 <p>Время: 15 мин</p>
-                                 <p>Количество вопросов: 15</p>
+                                <div className='timeInfo'>
+                                    <p>Время: 15 мин</p>
+                                    <video autoPlay muted loop className='timeVideo'>
+                                        <source src="http://127.0.0.1:8080/wired-gradient-45-clock-time-hover-pinch.mp4" type="video/mp4" />
+                                    </video>
+                                </div>
+                                
+                                <div className='questionsInfo'>
+                                    <p>Количество вопросов: 15</p>
+                                    <video autoPlay muted loop className='timeVideo'>
+                                            <source src="http://127.0.0.1:8080/wired-outline-35-edit-hover-circle.mp4" type="video/mp4" />
+                                    </video>
+                                </div>
+                                 
+                                 
                             </Card.Text>
                         </Card.Body>
                     </Card>

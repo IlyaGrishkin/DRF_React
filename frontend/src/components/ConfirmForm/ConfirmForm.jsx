@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './ConfirmForm.css';
+import axios from 'axios'
+ 
 
 
 function ConfirmForm() {
@@ -33,6 +35,25 @@ function ConfirmForm() {
     useEffect(() => {
         if (code.indexOf(-1) == -1) {
             let s = code.join("");
+            const email = JSON.parse(localStorage.getItem('userEmail'))
+            console.log(email)
+            const apiUrl = `http://localhost:8000/api/v1/customers/confirm`
+            axios.post(apiUrl, 
+                {
+                    email: email,
+                    code: s
+                }
+            )
+            
+            .then((resp) => {
+            const serverData = resp.data;
+            const accessToken = serverData.data.access_token
+            const refreshToken = serverData.data.refresh_token
+            const expires = serverData.data.expires_in
+            localStorage.setItem('accessToken', JSON.stringify(accessToken))
+            localStorage.setItem('refreshToken', JSON.stringify(refreshToken))
+            localStorage.setItem('expires', JSON.stringify(expires))
+            });
             window.location.href = "http://localhost:3000/login/check/results/"
 
         }
