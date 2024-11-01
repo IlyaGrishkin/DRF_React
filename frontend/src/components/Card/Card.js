@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Card, ListGroup, Button } from 'react-bootstrap';
-import { getAPIData, addAnswer, results, setObj } from '../../redux/reduxIndex';
-import { useParams } from 'react-router-dom';
+import axios from 'axios'
 import './Card.css';
 
 
@@ -11,7 +10,6 @@ function AppCard(props) {
     const testID = props.testID
     const variants = props.variants;
     const questionsQuantity = props.questionsQuantity
-    console.log(`QQ: ${questionsQuantity}`)
     const [answer, setAnswer] = useState({});
     
 
@@ -71,7 +69,30 @@ function AppCard(props) {
             localStorage.setItem('answers', JSON.stringify(ans));
         }
 
-         
+        function sendAnswers(){
+            const answers = JSON.parse(localStorage.getItem("answers"))
+            console.log(answers)
+            const apiUrl = `http://localhost:8000/api/v1/tests/update/attempt`;
+            let config = {
+                headers: {
+                    Authorization: JSON.parse(localStorage.getItem("accessToken"))
+                }
+            }
+            axios.post(apiUrl, 
+                {
+                    test_id: testID,
+                    user_answers: answers
+                },
+                config
+            )
+            
+            .then((resp) => {
+            const serverData = resp.data;
+            console.log(serverData);
+            //localStorage.setItem("timeStart", JSON.stringify(parseInt((new Date(serverData.data.created_at).getTime() / 1000).toFixed(0))))
+            localStorage.setItem("answers",  JSON.stringify(serverData.data.user_answers))
+            }) 
+        }
 
 
 
@@ -93,7 +114,7 @@ function AppCard(props) {
                         {variants.map((variant) => (
                             <ListGroup.Item>
                                 <Button className="w-100"
-                                    variant={active.indexOf(variant.id) != -1 ? "primary" : "outline-primary"}
+                                    variant={(active.indexOf(variant.id) != -1)? "primary" : "outline-primary"}
                                     onClick={() => { setActive(changeActive(variant.id)) }}>{variant.text}
                                 </Button>
                             </ListGroup.Item>
@@ -101,7 +122,7 @@ function AppCard(props) {
                     </ListGroup>
 
                     <Card.Body style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <Button onClick={() => { addAnswer(1, active); setObj(JSON.parse(localStorage.getItem("answers")))}} className="w-50" variant='outline-success' href={id == questionsQuantity ? `/${testID}/results/` : `/card/${testID}/${id ? parseInt(id) + 1 : 1}/`}>Next</Button>
+                        <Button onClick={() => { addAnswer(id, active);  sendAnswers()}} className="w-50" variant='outline-success' >Next</Button>
                     </Card.Body>
                 </div>
 
@@ -114,6 +135,6 @@ function AppCard(props) {
     }
 }
 
-
+//href={id == questionsQuantity ? `/${testID}/results/` : `/card/${testID}/${id ? parseInt(id) + 1 : 1}/`} 
 
 export default AppCard;

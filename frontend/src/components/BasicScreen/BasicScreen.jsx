@@ -1,16 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import axios from 'axios'
 import './BasicScreen.css';
 
 
 
+
 function BasicScreen() {
+    
+    function handleTestStart(testID){
+        if (JSON.parse(localStorage.getItem("accessToken"))){
+            const apiUrl = `http://localhost:8000/api/v1/tests/create/new_attempt`;
+            let config = {
+                headers: {
+                    Authorization: JSON.parse(localStorage.getItem("accessToken"))
+                }
+            }
+            axios.post(apiUrl, 
+                {
+                    test_id: testID
+                },
+                config
+            )
+            
+            .then((resp) => {
+            const serverData = resp.data;
+            console.log(serverData);
+            localStorage.setItem("timeStart", JSON.stringify(parseInt((new Date(serverData.data.created_at).getTime() / 1000).toFixed(0))))
+            localStorage.setItem("answers",  JSON.stringify(serverData.data.user_answers))
+            })
+        }
+    }
+
     return (
         <div className='screen-wrapper'>
             
@@ -27,7 +51,7 @@ function BasicScreen() {
                 </div>
     
                 <div className='card-container'>
-                    <Card className="card" style={{ width: '18rem' }}>
+                    <Card className="card" style={{ width: '18rem' }} onClick={() => handleTestStart(1)}>
                         <Card.Img variant="top" src="http://127.0.0.1:8080/1677481342_bronk-club-p-otkritki-tomas-kinkeid-instagram-25.jpg" />
                         <Card.Body>
                             <Card.Title className='card-title'>Русская архитектура</Card.Title>

@@ -38,11 +38,12 @@ function LoginForm(props) {
         setEmailDirty(true);
     }
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         if (formValid) {
+            event.preventDefault()
             localStorage.setItem("userEmail", JSON.stringify(email))
             const apiUrl = `http://localhost:8000/api/v1/customers/get_and_auth`;
-            axios.post(apiUrl, 
+            await axios.post(apiUrl, 
                 {
                     email: email
                 }
@@ -50,8 +51,8 @@ function LoginForm(props) {
             
             .then((resp) => {
             const serverData = resp.data;
+            console.log(serverData)
             });
-            event.preventDefault()
             window.location.href = "http://localhost:3000/login/check/";
             
         }

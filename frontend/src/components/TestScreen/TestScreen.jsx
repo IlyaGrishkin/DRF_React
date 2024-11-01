@@ -5,6 +5,7 @@ import AppCard from "../Card/Card";
 import { useEffect, useState } from "react";
 import axios from 'axios'
 import { getTestData } from "../../redux/reduxIndex";
+import { handleToken } from "../../tools/lookups";
 
 
 
@@ -18,6 +19,7 @@ function TestScreen(props) {
     const [questionQuantity, setQuestionsQuantity] = useState([])
 
     useEffect(() => {
+        handleToken()
         const apiUrl = `http://localhost:8000/api/v1/tests/${testID}`;
         axios.get(apiUrl).then((resp) => {
           const serverData = resp.data;
@@ -28,8 +30,7 @@ function TestScreen(props) {
         });
       }, [setData]);
 
-    console.log(question)
-    console.log(answers)
+
     
 
     
@@ -43,11 +44,6 @@ function TestScreen(props) {
         window.location.href = `http://localhost:3000/${testId}/results/`
         
     }  
-
-    if (!localStorage.getItem("answers") || !localStorage.getItem("testTime")) {
-        let data = getTestData()
-        localStorage.setItem("testTime", JSON.stringify(data.startTime))
-    }
 
     return (
         <div className='test-screen'>
