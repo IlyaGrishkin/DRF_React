@@ -122,7 +122,7 @@ function AppCard(props) {
                     </ListGroup>
 
                     <Card.Body style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <Button onClick={() => { addAnswer(id, active);  sendAnswers()}} className="w-50" variant='outline-success' >Next</Button>
+                        <Button onClick={() => {addAnswer(id, active); sendAnswers()}} className="w-50" variant='outline-success' >Next</Button>
                     </Card.Body>
                 </div>
 

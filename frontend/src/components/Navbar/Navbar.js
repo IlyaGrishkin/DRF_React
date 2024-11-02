@@ -1,6 +1,8 @@
 import React from 'react';
 import {Navbar, Container, Nav } from 'react-bootstrap';
 import './Navbar.css'
+import { Avatar } from '@mui/material';
+
 
 function AppNavbar() {
     return (
@@ -12,9 +14,18 @@ function AppNavbar() {
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="#features">Features</Nav.Link>
               <Nav.Link href="#pricing">Pricing</Nav.Link>
-              
             </Nav>
           </Container>
+          
+           
+          <Nav.Link href="/profile/" className='avatar'>
+            <Avatar src="https://avatars.mds.yandex.net/i?id=b8dd7d668d87124fe43353f8ddb108d5_l-5023807-images-thumbs&n=13"/>
+          </Nav.Link>
+          
+            
+          
+          
+         
         </Navbar>
              
 

@@ -4,4 +4,8 @@
     background-color:chartreuse;
   }
   
+.avatar {
+  position: absolute;
+  right: 2.0%;
+}
   
